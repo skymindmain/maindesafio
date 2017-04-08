@@ -18,25 +18,36 @@ class canalYoutube {
         //return $array;
     }
 
-    public function getImageVideoFromAPI($VideoId) {
-        $url = 'https://api.myjson.com/bins/1e4f6v';
-        $json = file_get_contents($url);
+    private function getImageVideoFromAPI($VideoId) {
+        $VideoId = 'https://api.myjson.com/bins/1e4f6v';
+        $json = file_get_contents($VideoId);
         $Date = json_decode($json);
         return $Date->items[0]->snippet->thumbnails->medium->url;
     }
     
      public static function getVideos() {
-        //return self::getIdVideosFromAPI();
-        //$Video = new Video('image', 'link');
-        //$Video2 = new Video('image2', 'link2');
-        //$Video3 = new Video('image3', 'link3');
-    
-        //return array($Video, $Video2, $Video3);
+        $idVideosAPI = self::getIdVideosFromAPI();
+        $videosDesafio = 100;
+        $videosQueFaltam = $videosDesafio - count($idVideosAPI);
+        
+        $Videos = array();
+        
+        for($i = 1; $i <= $videosQueFaltam; $i++):
+            $noVideo = new Video('https://placeholdit.imgix.net/~text?txtsize=33&txt=&w=320&h=180', 'https://placeholdit.imgix.net/~text?txtsize=33&txt=&w=320&h=180');
+            array_push($Videos, $noVideo);
+        endfor;
+        
+        foreach($idVideosAPI as $umVideoId):
+            $link = self::getImageVideoFromAPI($umVideoId);
+            $image = 'https://www.youtube.com/watch?v=' . $umVideoId;
+            $Video = new Video($image, $link);
+            array_push($Videos, $Video);
+        endforeach;
+        
+        return $Videos;
     }
     
 
 }
 
-        
-
-
+   

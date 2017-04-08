@@ -3,5 +3,6 @@
       justify-content: space-around;
     }
     img {
-      border: solid;
+      width: 320px;
+      height: 180;
     }
