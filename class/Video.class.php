@@ -1,13 +1,12 @@
 <?php
-
 class Video {
     
-    public $Video;
     public $Image;
+    public $Link;
     
-    function __construct($Video, $Image) {
-        $this->Video = $Video;
+    function __construct($Image, $Link) {
         $this->Image = $Image;
+        $this->Link = $Link;
     }
     
 }
